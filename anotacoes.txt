@@ -1,0 +1,64 @@
+Informática
+1° ano
+- Informatica básica.
+- Arquitetura e manutenção de computadores.
+- Gestão do tempo.
+- HTML/CSS.
+- Lógica de programação.
+2° ano
+- Noções de robótica.
+- P.O.O/JAVA.
+- Programação web( JS, PHP E MYSQL ).
+- Sistemas operacionais.
+- Design.
+- Gerenciador de conteúdos/ banco de dados.
+- Programação web II.
+- Redes de computadores.
+3° ano
+- Profissão e formação.
+- Laboratório de software.
+- Laboratório de web.
+- Laboratório de hardware.
+
+Enfermagem
+1° ano
+- Informatica básica.
+- Anatomia e fisiologia humana básica.
+- Introdução à profissão, legislação e bioética.
+- Política de saúde.
+- Promoção, prevenção e vigilância em saúde.
+2° ano
+- Preparação para realização de exames.
+- Saúde da criança e do escolar.
+- Saúde do homem adolescente, adulto e idoso.
+- Saúde mental.
+- Saúde da mulher adolescente, adulta e idosa.
+- Semiologia e semiotécnica.
+3° ano
+- Assistência ao paciente cirúrgico.
+- Laboratório de práticas da enfermagem I.
+- Laboratório de práticas da enfermagem II.
+
+Secretaria Escolar
+1° ano
+- Expressão oral e escrita.
+- Fundamentos da educação.
+- Introdução ao curso técnico e ética profissional.
+- Qualidade no atendimento público.
+- Relações interpessoais.
+2° ano
+- Gestão administrativa da secretaria escolar.
+- Gestão educacional.
+- Legislação da educação do ensino fundamental.
+- Legislação da educação do ensino médio e profissional.
+- Organização da secretaria escolar e acadêmia.
+- Escrituração escolar.
+- Legislação do conselho nacional de educação.
+- Organização escolar currículo e avaliação.
+- Técnica da secretaria escolar l.
+3° ano
+- Instrumento gerênciais da escola.
+- Técnica da secretaria escolar ll.
+- Técnicas de arquivamento.
+- Estátistica aplicada ao trabalho do secretário escolar.
+
