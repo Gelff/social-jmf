@@ -4,7 +4,10 @@
     if(isset($_SESSION['email'])&&(isset($_SESSION['senha']))){
         header("Location: /perfil");
     }
-    include_once("content/code/conexao.php");
+    include("content/code/conexao.php");
+    include("content/code/erro.php");
+    include("content/code/login.php");
+    include("content/code/cadastro.php");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -20,7 +23,7 @@
         <section class="content">
             <div>
                 <img src="content/img/svg/logo.svg" width="200" height="200">
-                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Velit iure error vero, illo commodi, quidem excepturi ad sed reprehenderit ullam ut. Adipisci accusantium aut id laudantium accusamus? Quis, facere rerum?</p>
+                <p>Olá! A Social Network JMF é uma plataforma digital para o uso escolar dos estudantes de EEEP<br>Como um meio de noticias, conteúdos e lazer!</p>
             </div>
             <div style="background-color: white; border-radius:30px;display:flex;justify-content:center;">
                 <form action="" method="post" style="height:190px;">
@@ -59,95 +62,6 @@
                     '</div>';
                 })
             </script>
-            <?php
-                function errorMes($chose){
-                    $alarm = ["red","orangered","green"];
-                    $pack = ["Preencha Todos os Campo!","Usuário Inválido.","Cadastrado Com Sucesso!"];
-                    echo "<div style='position:absolute;top:-10px;width:100%;height:50px;background-color:".$alarm[$chose].";'><b>".$pack[$chose]."</b></div>";
-                    header("Refresh:2");
-                }
-                if(isset($_POST['entrar'])){
-                    $emailL = $_POST['emailL'];
-                    $senhaL = base64_encode($_POST['senhaL']);
-                    $select = "SELECT * FROM contas WHERE email=:emailL2 AND senha=:senhaL2";
-                    try{
-                        $rL = $conect->prepare($select);
-                        $rL->bindParam(':emailL2',$emailL,PDO::PARAM_STR);
-                        $rL->bindParam(':senhaL2',$senhaL,PDO::PARAM_STR);
-                        $rL->execute();
-                        if($rL->rowCount()>0){
-                            $emailL = $_POST['emailL'];
-                            $senhaL = $_POST['senhaL'];
-
-                            $_SESSION['email'] = $emailL;
-                            $_SESSION['senha'] = $senhaL;
-
-                            $updateStatus = "UPDATE contas SET status=1 WHERE email=:emailLe";
-                            $rU = $conect->prepare($updateStatus);
-                            $rU->bindParam(':emailLe',$emailL,PDO::PARAM_STR);
-                            $rU->execute();
-                           
-
-                            header('Refresh: 0, /perfil/');
-                        }else{
-                            errorMes(1);
-                        }
-                    }catch(PDOException $e){}
-                }
-
-                if(isset($_POST['cadastrar'])){
-                    $nome = $_POST['nome'];
-                    $sobrenome = $_POST['sobrenome'];
-                    $email = $_POST['email'];
-                    $senha = base64_encode($_POST['senha']);
-                    $dara = date(DATE_RFC822);
-                    $verificado = 0;
-                    $status = 0;
-                    if(!empty($nome)&&!empty($sobrenome)&&!empty($email)&&!empty($senha)){
-                        errorMes(2);
-                        try{
-                            $cadastro = "INSERT INTO contas (nome, sobrenome, email, senha, verificado, status, criacao) VALUES (:nome, :sobrenome, :email, :senha, :verificado, :status, :criacao)";
-                            $result = $conect->prepare($cadastro);
-                            $result->bindParam(':nome',$nome,PDO::PARAM_STR);
-                            $result->bindParam(':sobrenome',$sobrenome,PDO::PARAM_STR);
-                            $result->bindParam(':email',$email,PDO::PARAM_STR);
-                            $result->bindParam(':senha',$senha,PDO::PARAM_STR);
-                            $result->bindParam(':verificado',$verificado,PDO::PARAM_STR);
-                            $result->bindParam(':status',$status,PDO::PARAM_STR);
-                            $result->bindParam(':criacao',$dara,PDO::PARAM_STR);
-                            $result->execute();
-                            
-                            $checklogin = "SELECT * FROM contas WHERE email=:emailCheck";
-                            $resulter = $conect->prepare($checklogin);
-                            $resulter->bindParam(':emailCheck',$email,PDO::PARAM_STR);
-                            $resulter->execute();
-                            if($resulter->rowCount()>0){
-                                $apelido = "";
-                                $capa = "/content/img/capas/capa.png";
-                                $biografia = "";
-                                $turma = "Turma";
-                                $foto = "nil.png";
-                                $rc = $resulter->fetch(PDO::FETCH_OBJ);
-                                $idCheck = $rc->id;
-                                $perfil = "INSERT INTO perfil(id,apelido,capa,biografia,turma,foto) VALUES(:idp,:apelido,:capa,:biografia,:turma,:foto)";
-                                $perfilresult = $conect->prepare($perfil);
-                                $perfilresult->bindParam(':idp',$idCheck,PDO::PARAM_STR);
-                                $perfilresult->bindParam(':apelido',$apelido,PDO::PARAM_STR);
-                                $perfilresult->bindParam(':capa',$capa,PDO::PARAM_STR);
-                                $perfilresult->bindParam(':biografia',$biografia,PDO::PARAM_STR);
-                                $perfilresult->bindParam(':turma',$turma,PDO::PARAM_STR);
-                                $perfilresult->bindParam(':foto',$foto,PDO::PARAM_STR);
-                                $perfilresult->execute();
-                            }
-
-                        }catch(PDOException $e){
-                            echo "<strong>ERRO DE CADASTRO PDO = </strong>".$e->getMessage();
-                        }
-                    }else{
-                        errorMes(0);
-                    }
-                }
-            ?>
         </section>
     </section>
 </body>
