@@ -28,8 +28,8 @@ if(isset($_POST['cadastrar'])){
             if($resulter->rowCount()>0){
                 $apelido = "";
                 $capa = "/content/img/capas/capa.png";
-                $biografia = "";
-                $turma = "Turma";
+                $biografia = "Escreva algo legal :)";
+                $turma = "none";
                 $foto = "nil.png";
                 $rc = $resulter->fetch(PDO::FETCH_OBJ);
                 $idCheck = $rc->id;

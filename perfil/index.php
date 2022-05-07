@@ -75,19 +75,53 @@
                 </div>
                 <div class="biodiv">
                     <form action="" method="post">
+                        
                         <?php if($acID==$id) { ?>
-                            <input name="alterbio" type="text" value="<?php echo $pBio; ?>">
+                            <input name="alterbio" type="text" maxlength="50" value="<?php echo $pBio; ?>">
                         <?php }else{ ?>
                             <div style="margin-top:10px;font-size:20px;text-align:center;"><?php echo $pBio; ?></div>
                         <?php } ?>
+
+                        <div class="outras">
+                            <b>Turma</b>
+                            <select name="turmas" id="turmas">
+                                <option value="none" id="none">Nenhuma</option>
+                                
+                                <option value="inf1" id="inf1">1º Informática</option>
+                                <option value="enf1" id="enf1">1º Enfermagem</option>
+                                <option value="adm1" id="adm1">1º Administração</option>
+                                <option value="con1" id="con1">1º Contabilidade</option>
+
+                                <option value="inf2" id="inf2">2º Informática</option>
+                                <option value="enf2" id="enf2">2º Enfermagem</option>
+                                <option value="adm2" id="adm2">2º Administração</option>
+                                <option value="con2" id="con2">2º Contabilidade</option>
+
+                                <option value="inf3" id="inf3">3º Informática</option>
+                                <option value="com3" id="com3">3º Comércio</option>
+                                <option value="enf3" id="enf3">3º Enfermagem</option>
+                                <option value="sec3" id="sec3">3º Secretaria</option>
+                                <option value="adm3" id="adm3">3º Administração</option>
+                                <option value="con3" id="con3">3º Contabilidade</option>
+                            </select>
+                            <script>
+                                turma = document.getElementById("<?php echo $pTurma ?>")
+                                turma.selected=true
+                            </script>
+                            <?php if($acID==$id) { ?>
+                            <input type="submit" value="Salvar Alterações" name="savealtbio">
+                            <?php } ?>
+                        </div>
                     </form>
                     <?php 
-                        if(isset($_POST['alterbio'])){
+                        if(isset($_POST['savealtbio'])){
                             $alterbio = $_POST["alterbio"];
-                            $selectbio = "UPDATE perfil SET biografia=:altb WHERE id=$id;";
+                            $alterturma = $_POST['turmas'];
+                            $selectbio = "UPDATE perfil SET biografia=:altb,turma=:alttu WHERE id=$id;";
                             try{
                                 $resultadobio = $conect->prepare($selectbio);
                                 $resultadobio->bindParam(':altb',$alterbio,PDO::PARAM_STR);
+                                $resultadobio->bindParam(':alttu',$alterturma,PDO::PARAM_STR);
                                 $resultadobio->execute();
                                 header("Refresh:0");
                             }catch(PDOException $e) {
@@ -96,32 +130,45 @@
                     ?>
                 </div>
 
+                <?php if($acID==$id) { ?>
+                <form method="post" class="publik" enctype="multipart/form-data">
+                    <div style="display:flex;flex-direction:column">
+                        <input type="text" placeholder="No que você está pensando?" name="textin" maxlength="500">
+                        <input name="fotopub" type="file" style="background-color:transparent;border:0px !important;">
+                    </div>
+                    <input type="submit" value=">" name="publik" class="publikinput">
+                </form>
+                <?php } ?>
                 <div class="publicacoes">
-                    <?php if($acID==$id) { ?>
-                    <form method="post" class="publik">
-                        <input type="text" placeholder="No que você está pensando?" name="textin" maxlength="26">
-                        <input type="submit" value=">" name="publik">
-                    </form>
-                    <?php }else{ ?>
-                        <b>Atualizações de <?php echo $acnome ?></b>
-                    <?php } ?>
                     <?php
-                        
                         if(isset($_POST['publik'])){
+
                             $textin = $_POST["textin"];
-                            if(str_contains("$textin", ' ')){
-                                $select = "INSERT INTO publicacoes(texto,idConta,idPerfil) VALUES(:textin,:idc,:idpe)";
+                            #if(str_contains("$textin", ' ')){
+                            if($textin!=""){
+                                $select = "INSERT INTO publicacoes(midia,texto,idConta,idPerfil) VALUES(:midia,:textin,:idc,:idpe)";
                                 try{
+                                    $formatPp = ["png","jpg","jpeg","JPG","gif"];
+                                    $extensaop = pathinfo($_FILES['fotopub']['name'],PATHINFO_EXTENSION);
+                                    if(in_array($extensaop, $formatPp)){
+                                        $pasta = "../content/img/pub/";
+                                        $temporario = $_FILES['fotopub']['tmp_name'];
+                                        $novoNome = md5($acID.$nome.$token.uniqid()).".jpg";
+                                        $uparp = move_uploaded_file($temporario, $pasta.$novoNome);
+                                    } if($novoNome==""){$novoNome="nil";}
                                     $resultado = $conect->prepare($select);
+                                    $resultado->bindParam(':midia',$novoNome,PDO::PARAM_STR);
                                     $resultado->bindParam(':textin',$textin,PDO::PARAM_STR);
                                     $resultado->bindParam(':idc',$id,PDO::PARAM_STR);
                                     $resultado->bindParam(':idpe',$acID,PDO::PARAM_STR);
                                     $resultado->execute();
+
+
                                     header("Refresh:0");
                                 }catch(PDOException $e) {
                                 }
                             }else{
-                                echo "<b style='color:red; margin-right:90px;'>Você não pode publicar apenas 1 palavra!</b>";
+                                echo "<b style='color:red; width:100%;text-align:center;'>Insira ao menos 1 palavra para publicar!</b>";
                                 header("Refresh:2,./$acID");
                             }
                         }
@@ -141,11 +188,14 @@
                             <div style="display:flex;flex-direction:column;align-items:flex-start;justify-content:center;">
                                 <a><b><?php echo $acnome." ".$acsobrenome; ?></b> - <?php echo $show->data; ?></a>
                                 <a class="textpub"><?php echo $show->texto; ?></a>
+                                <?php if($show->midia!="nil") { ?>
+                                    <img style="border-radius:10px;" width="250" src="/content/img/pub/<?php echo $show->midia; ?>">
+                                <?php } ?>
                             </div>
                             <form method="post">
                                 <div style="display:flex;flex-direction:column;align-items:center;">
                                     <button name="curtir" class="curtir" id="curtir" value="<?php echo $acIDPub; ?>"></button>
-                                    <b>0</b>
+                                    <b><?php echo $show->likes; ?></b>
                                 </div>
                                 <button class="responder"></button>
                                 <button class="compartilhar"></button>
@@ -165,7 +215,36 @@
                             $deletare->execute();
                             header("Refresh:0");
                         }
-                        ?>
+                        if(isset($_POST['curtir'])){
+                            $cut = $_POST['curtir'];
+                            $inserircurtida = "INSERT INTO curtidas(idPub,idConta) VALUES(:idPub,:idConta)";
+                            try{
+                                $curtidas = "SELECT * FROM curtidas WHERE idPub=:vidPub AND idConta=:vidConta";
+                                $getcurtidas = $conect->prepare($curtidas);
+                                $getcurtidas->bindParam(':vidPub',$cut,PDO::PARAM_INT);
+                                $getcurtidas->bindParam(':vidConta',$id,PDO::PARAM_INT);
+                                $getcurtidas->execute();
+                                if($getcurtidas->rowCount()>0){
+                                    $removercurtida = "DELETE FROM curtidas WHERE idPub=$cut AND idConta=$id";
+                                    $resultcurtir = $conect->prepare($removercurtida);
+                                    $resultcurtir->execute();
+                                    $curtirr = "UPDATE publicacoes SET likes=likes-1 WHERE id=$cut";
+                                    $curtirre = $conect->prepare($curtirr);
+                                    $curtirre->execute();
+                                }else{
+                                    $resultcurtir = $conect->prepare($inserircurtida);
+                                    $resultcurtir->bindParam(':idPub',$cut,PDO::PARAM_INT);
+                                    $resultcurtir->bindParam(':idConta',$id,PDO::PARAM_INT);
+                                    $resultcurtir->execute();
+                                    $curtirr = "UPDATE publicacoes SET likes=likes+1 WHERE id=$cut";
+                                    $curtirre = $conect->prepare($curtirr);
+                                    $curtirre->execute();
+                                }
+                            }catch(PDOException $e){}
+                            header("Refresh:0");
+                        }
+                        
+                    ?>
                 </div>
                 <div id="picchange">
                 </div>
