@@ -22,7 +22,7 @@
     <section class="main">
         <section class="content">
             <div>
-                <img src="content/img/svg/logo.svg" width="200" height="200">
+                <img src="content/img/svg/logoariana.svg" width="300" height="300">
                 <p>Olá! A Social Network JMF é uma plataforma digital para o uso escolar dos estudantes de EEEP<br>Como um meio de noticias, conteúdos e lazer!</p>
             </div>
             <div style="background-color: white; border-radius:30px;display:flex;justify-content:center;">
@@ -52,8 +52,8 @@
                                 '<button name="fechar" style="border-radius:100%;background-color: red;color:white;width:30px;height:30px;border:0px;"><b>X</b></button>'+
                             '</div>'+
                             '<div>'+
-                                '<input type="text" name="nome" placeholder="Nome" pattern="([aA-zZ]+)">'+
-                                '<input type="text" name="sobrenome" placeholder="Sobrenome" pattern="([aA-zZ]+)">'+
+                                '<input pattern="([aA-zZ]+)" type="text" name="nome" placeholder="Nome" pattern="([aA-zZ]+)">'+
+                                '<input pattern="([aA-zZ]+)" type="text" name="sobrenome" placeholder="Sobrenome" pattern="([aA-zZ]+)">'+
                                 '<input type="email" name="email" placeholder="exemplo@email.com">'+
                                 '<input type="password" name="senha" placeholder="********">'+
                                 '<input class="caao" type="submit" name="cadastrar" value="Cadastrar" style="margin-top:20px;">'+

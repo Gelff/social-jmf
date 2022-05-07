@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 01-Maio-2022 às 09:10
+-- Tempo de geração: 07-Maio-2022 às 20:04
 -- Versão do servidor: 10.4.22-MariaDB
 -- versão do PHP: 8.1.2
 
@@ -68,13 +68,13 @@ CREATE TABLE `contas` (
 --
 
 INSERT INTO `contas` (`id`, `nome`, `sobrenome`, `email`, `senha`, `status`, `verificado`, `criacao`) VALUES
-(17, 'Geronimo', 'Neto', 'geronimo@gmail.com', 'MTIz', 1, 1, 'Sun, 01 May 22 00:27:56 +0200'),
+(17, 'Geronimo', 'Neto', 'geronimo@gmail.com', 'MTIz', 1, 0, 'Sun, 01 May 22 00:27:56 +0200'),
 (20, 'Camila', 'Pedro', 'gg@gmail.com', 'MTIz', 0, 0, 'Sun, 01 May 22 01:48:31 +0200'),
-(21, 'Meu', 'Telefone', 'mobile@gmail.com', 'MTIz', 0, 0, 'Sun, 01 May 22 02:42:27 +0200'),
-(22, 'Teste ', 'Teste', 'teste@teste.teste.te', 'dGVzdGU=', 0, 0, 'Sun, 01 May 22 02:59:41 +0200'),
-(23, 'Leticiaa', 'Moura', 'leticialindaa@gmail.com', 'MTIz', 0, 0, 'Sun, 01 May 22 03:18:21 +0200'),
-(24, 'Esquerci', 'Senha', 'esquerciasenha@gmail.com', 'MTIzNA==', 0, 0, 'Sun, 01 May 22 03:19:37 +0200'),
-(25, 'Lídia ', 'Almeida ', 'lidiaalmeidaw@gmail.com', 'amVzdXNjcmlzdG8uY29tMDA=', 0, 0, 'Sun, 01 May 22 03:42:23 +0200');
+(21, 'Meu', 'Telefone', 'mobile@gmail.com', 'MTIz', 1, 0, 'Sun, 01 May 22 02:42:27 +0200'),
+(22, 'Teste ', 'Teste', 'teste@teste.teste.te', 'dGVzdGU=', 1, 0, 'Sun, 01 May 22 02:59:41 +0200'),
+(23, 'Leticiaa', 'Moura', 'leticialindaa@gmail.com', 'MTIz', 0, 1, 'Sun, 01 May 22 03:18:21 +0200'),
+(24, 'Esquerci', 'Senha', 'esquerciasenha@gmail.com', 'MTIzNA==', 0, 1, 'Sun, 01 May 22 03:19:37 +0200'),
+(25, 'Lídia ', 'Almeida ', 'lidiaalmeidaw@gmail.com', 'amVzdXNjcmlzdG8uY29tMDA=', 0, 1, 'Sun, 01 May 22 03:42:23 +0200');
 
 -- --------------------------------------------------------
 
@@ -88,6 +88,48 @@ CREATE TABLE `eventos` (
   `descricao` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `data` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `logs`
+--
+
+CREATE TABLE `logs` (
+  `token` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `data` date NOT NULL DEFAULT current_timestamp(),
+  `type` tinyint(4) NOT NULL,
+  `macaddr` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Extraindo dados da tabela `logs`
+--
+
+INSERT INTO `logs` (`token`, `data`, `type`, `macaddr`) VALUES
+('geronimo@gmail.com', '2022-05-07', 1, ''),
+('geronimo@gmail.com', '2022-05-07', 1, '::1'),
+('geronimo@gmail.com', '2022-05-07', 1, '12-02-F8-0F-DD-D8'),
+('geronimo@gmail.com', '2022-05-07', 1, '12-02-F8-0F-DD-D8'),
+('mobile@gmail.com', '2022-05-07', 1, '12-02-F8-0F-DD-D8'),
+('87bda2750c425471aa795969ef2c3750', '2022-05-07', 1, '12-02-F8-0F-DD-D8'),
+('87bda2750c425471aa795969ef2c3750', '2022-05-07', 0, '12-02-F8-0F-DD-D8'),
+('71fc8cafd7bfeb4aa7e0dcce50583503', '2022-05-07', 1, '12-02-F8-0F-DD-D8'),
+('71fc8cafd7bfeb4aa7e0dcce50583503', '2022-05-07', 0, '12-02-F8-0F-DD-D8'),
+('71fc8cafd7bfeb4aa7e0dcce50583503', '2022-05-07', 1, '12-02-F8-0F-DD-D8'),
+('71fc8cafd7bfeb4aa7e0dcce50583503', '2022-05-07', 0, '12-02-F8-0F-DD-D8'),
+('71fc8cafd7bfeb4aa7e0dcce50583503', '2022-05-07', 1, '12-02-F8-0F-DD-D8'),
+('c331b13453204942e7bf573728cd0d63', '2022-05-07', 0, '12-02-F8-0F-DD-D8'),
+('c331b13453204942e7bf573728cd0d63', '2022-05-07', 1, '12-02-F8-0F-DD-D8'),
+('c331b13453204942e7bf573728cd0d63', '2022-05-07', 0, '12-02-F8-0F-DD-D8'),
+('87bda2750c425471aa795969ef2c3750', '2022-05-07', 1, '12-02-F8-0F-DD-D8'),
+('87bda2750c425471aa795969ef2c3750', '2022-05-07', 0, '12-02-F8-0F-DD-D8'),
+('c331b13453204942e7bf573728cd0d63', '2022-05-07', 1, '12-02-F8-0F-DD-D8'),
+('c331b13453204942e7bf573728cd0d63', '2022-05-07', 0, '12-02-F8-0F-DD-D8'),
+('87bda2750c425471aa795969ef2c3750', '2022-05-07', 1, '12-02-F8-0F-DD-D8'),
+('c331b13453204942e7bf573728cd0d63', '2022-05-07', 1, '12-02-F8-0F-DD-D8'),
+('71fc8cafd7bfeb4aa7e0dcce50583503', '2022-05-07', 0, '12-02-F8-0F-DD-D8'),
+('71fc8cafd7bfeb4aa7e0dcce50583503', '2022-05-07', 1, '12-02-F8-0F-DD-D8');
 
 -- --------------------------------------------------------
 
@@ -109,13 +151,13 @@ CREATE TABLE `perfil` (
 --
 
 INSERT INTO `perfil` (`id`, `apelido`, `capa`, `biografia`, `turma`, `foto`) VALUES
-(17, 'cumia', '/content/img/capas/capa.png', 'Oi tudo bom 😒👌', 'Turma', '9452eacb4debf75dd9af48dab8546aba.jpg'),
+(17, 'cumia', '/content/img/capas/capa.png', 'Meus status cooooooooooooooool', 'Turma', '9452eacb4debf75dd9af48dab8546aba.jpg'),
 (20, '', '/content/img/capas/capa.png', 'minha bio', 'Turma', 'nil.png'),
-(21, '', '/content/img/capas/capa.png', '', 'Turma', 'nil.png'),
-(22, '', '/content/img/capas/capa.png', 'Picture a book', 'Turma', 'nil.png'),
+(21, '', '/content/img/capas/capa.png', 'Aff tchau', 'Turma', '851217ace26ff36d6a2ea0dce55a0ffa.jpg'),
+(22, '', '/content/img/capas/capa.png', 'Picture a book', 'Turma', '6ec44141a8c1d396d7c388a24ee62f54.jpg'),
 (23, '', '/content/img/capas/capa.png', '', 'Turma', 'nil.png'),
-(24, '', '/content/img/capas/capa.png', '', 'Turma', 'nil.png'),
-(25, '', '/content/img/capas/capa.png', '🤡', 'Turma', 'nil.png');
+(24, '', '/content/img/capas/capa.png', '', 'Turma', 'cb554fb291f796b2f9fab21447fd5a62.jpg'),
+(25, '', '/content/img/capas/capa.png', 'Hello =D', 'Turma', 'c658eb1818ad2779ed1ae0daf442f81a.jpg');
 
 -- --------------------------------------------------------
 
@@ -142,16 +184,21 @@ CREATE TABLE `publicacoes` (
 
 INSERT INTO `publicacoes` (`id`, `data`, `midia`, `texto`, `likes`, `privacidade`, `reacoes`, `denuncias`, `idConta`, `idPerfil`) VALUES
 (83, '2022-04-30', '', 'teste aa', 0, 0, 0, 0, 17, 20),
-(84, '2022-04-30', '', 'Kklkkklk q legalllll', 0, 0, 0, 0, 25, 25),
-(85, '2022-04-30', '', 'Kklkkklk q legalllll', 0, 0, 0, 0, 25, 25),
-(86, '2022-04-30', '', 'Kklkkklk q legalllll', 0, 0, 0, 0, 25, 25),
 (87, '2022-04-30', '', 'zap zip', 0, 0, 0, 0, 17, 20),
-(88, '2022-04-30', '', 'Kklkkklk q legalllll', 0, 0, 0, 0, 25, 25),
 (89, '2022-04-30', '', 'em nad', 0, 0, 0, 0, 21, 21),
 (91, '2022-04-30', '', 'kkkk biruta', 0, 0, 0, 0, 17, 23),
 (92, '2022-04-30', '', 'aa bbbds', 0, 0, 0, 0, 17, 20),
 (93, '2022-04-30', '', 'quem é', 0, 0, 0, 0, 17, 20),
-(100, '2022-05-01', '', 'boa noitinha', 0, 0, 0, 0, 17, 17);
+(105, '2022-05-01', '', 'cade o lolo', 0, 0, 0, 0, 21, 21),
+(107, '2022-05-01', '', 'Love you Thiago❤️*', 0, 0, 0, 0, 24, 24),
+(108, '2022-05-01', '', 'Я нет ', 0, 0, 0, 0, 24, 24),
+(112, '2022-05-06', '', 'em nada', 0, 0, 0, 0, 17, 17),
+(116, '2022-05-06', '', 'ashiburetero ki kkks osakd', 0, 0, 0, 0, 17, 17),
+(117, '2022-05-06', '', 'aaaaaaaaaa iiiiiiii', 0, 0, 0, 0, 17, 17),
+(118, '2022-05-07', '', 'bom dia', 0, 0, 0, 0, 17, 17),
+(119, '2022-05-07', '', 'AIAIAIAIAIA QAAAAAAA', 0, 0, 0, 0, 21, 21),
+(120, '2022-05-07', '', 'teste a', 0, 0, 0, 0, 17, 17),
+(121, '2022-05-07', '', 'não posso publicar muito', 0, 0, 0, 0, 17, 17);
 
 -- --------------------------------------------------------
 
@@ -225,7 +272,7 @@ ALTER TABLE `eventos`
 -- AUTO_INCREMENT de tabela `publicacoes`
 --
 ALTER TABLE `publicacoes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=101;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=122;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

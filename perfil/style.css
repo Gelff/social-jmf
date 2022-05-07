@@ -1,0 +1,280 @@
+:root{
+    --theme1: white;
+    --theme2: black;
+}
+*{
+    margin:0px;
+    font-family: arial;
+}
+.infos{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}.cape{
+    margin-top:5px;
+    background-color: black;
+    width:70%;
+    height:150px;
+    display:flex;
+    justify-content:center;
+    align-items:flex-end;
+    border-radius:10px;
+    background-size:100%;
+    background-repeat:no-repeat;
+    background-position:center;
+    background-image: url(/content/img/capas/capa.png);
+}.icon{
+    background-color: var(--theme2);
+    width:150px;
+    height:150px;
+    border-radius:100%;
+    position:absolute;
+    top:100px;
+    border:4px solid var(--theme1);
+    display:flex;
+    justify-content:flex-end;
+    align-items:flex-end;
+    background-size:100%;
+    background-repeat:no-repeat;
+    background-position:center;
+    cursor: pointer;
+}.icon:hover{
+    box-shadow: inset 0px 0px 20px 3px black;
+}
+.icon:hover::after{
+    content: 'Alterar Foto';
+    position: absolute;
+    width:100%;
+    height:100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color:white;
+}
+.status{
+    width:30px;
+    height:30px;
+    border-radius:100%;
+    position:absolute;
+    right:2px;
+    bottom:2px;
+    border:4px solid var(--theme1);
+}
+.st0{
+    background-color: gray;
+}.st1{
+    background-color: green;
+}.st2{
+    background-color: red;
+}
+.main{
+    position:absolute;
+    width:100%;
+    height:100%;
+    display:flex;
+    flex-direction: column;
+}.content{
+    background-color:var(--theme1);
+    width:100%;
+}.leftbar{
+    background-color:var(--theme1);
+    display:flex;
+    flex-direction:row;
+    justify-content: center;
+}.leftbar button{
+    width:40px;
+    height:40px;
+    margin:2px;
+    text-align:left;
+    border:0px;
+    background-size:80%;
+    background-repeat:no-repeat;
+    background-position: center;
+    background-color: var(--theme1);
+    border-radius:10px;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    cursor: pointer;
+}.perfil{
+    background-image: url(/content/img/svg/perfil_b.svg);
+}.perfil:hover{
+    background-image: url(/content/img/svg/perfil_w.svg);
+    background-color: var(--theme2);
+}.perfil:hover::after{
+    position:absolute;
+    margin-top:60px;
+    content:'Perfil';
+    background-color: var(--theme1);
+    color: var(--theme2);
+    border-radius:5px;
+    padding:2px;
+}
+.anuncios{
+    background-size:80% !important;
+    background-image: url(/content/img/svg/anuncios_b.svg);
+}.anuncios:hover{
+    background-image: url(/content/img/svg/anuncios_w.svg);
+    background-color: var(--theme2);
+}.anuncios:hover::after{
+    position:absolute;
+    margin-top:60px;
+    content:'Anuncios';
+    background-color: var(--theme1);
+    color: var(--theme2);
+    border-radius:5px;
+    padding:2px;
+}
+.amigos{
+    background-image: url(/content/img/svg/amigos_b.svg);
+}.amigos:hover{
+    background-image: url(/content/img/svg/amigos_w.svg);
+    background-color: var(--theme2);
+}.amigos:hover::after{
+    position:absolute;
+    margin-top:60px;
+    content:'Amigos';
+    background-color: var(--theme1);
+    color: var(--theme2);
+    border-radius:5px;
+    padding:2px;
+}
+.sair{
+    background-image: url(/content/img/svg/sair_b.svg);
+}.sair:hover{
+    background-color: var(--theme2);
+    background-image: url(/content/img/svg/sair_w.svg);
+}.sair:hover::after{
+    position:absolute;
+    margin-top:60px;
+    content:'Sair';
+    background-color: var(--theme1);
+    color: var(--theme2);
+    border-radius:5px;
+    padding:2px;
+}
+.namesdiv{
+    display:flex;
+    justify-content: center;
+    margin-top:70px;
+}.biodiv{
+    display:flex;
+    justify-content: center;
+}.biodiv form{
+    width:90%;
+}
+.biodiv input{
+    border:0px;
+    background-color: transparent;
+    font-size:21px;
+    text-align: center;
+    width:100%;
+    margin-top:5px;
+    margin-left:-4px;
+}
+.verificado0{
+    border:0px;
+    background-color: transparent;
+    color:transparent;
+    width: 20px;
+    height: 20px;
+    border:0px;
+    border-radius:100%;
+    background-color: transparent;
+}
+.verificado1{
+    transition: 0.2s;
+    border:0px;
+    background-color: transparent;
+    color:transparent;
+    transition: 0.2s;
+    width: 20px;
+    height: 20px;
+    border:0px;
+    border-radius:100%;
+    background-color: rgb(255, 255, 255);
+    background-image: url(/content/img/svg/verificado.svg);
+    background-size:100%;
+    background-position: center;
+    background-repeat: no-repeat;
+}.verificado1:hover{
+    background-color: cyan;
+    color: black;
+}
+.publicacoes{
+    margin-top:30px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}.publicacoes input{
+    border:1px solid var(--theme2) !important;
+    border:0px;
+    font-size:15px;
+    padding:10px;
+    border-radius:20px;
+    width:300px;
+}.publicacoes input[type=submit]{
+    border:0px !important;
+    border-radius:100%;
+    width:50px;
+    height:50px;
+}.pub{
+    margin-top:20px;
+    display: flex;
+    flex-direction: row;
+    width:300px;
+    height:100px;
+}.pub form{
+    display:flex;
+    flex-direction: row;
+}.pub form button{
+    width:30px;
+    height:30px;
+    border:0px;
+    background-size:70%;
+    background-repeat:no-repeat;
+    background-position: center;
+    background-color: transparent;
+    border-radius: 10px;
+}.minicon{
+    background-color: black;
+    width:50px !important;
+    height:50px !important;
+    background-size:100%;
+    background-repeat:no-repeat;
+    border:0px;
+    margin-bottom:10px;
+    margin-right:10px;
+}.excluir{
+    background-size: 60% !important;
+    background-image: url(/content/img/svg/deletar_b.svg);
+}.excluir:hover{
+    background-color: var(--theme2);
+    background-image: url(/content/img/svg/deletar_w.svg);
+}
+.compartilhar{
+    background-image: url(/content/img/svg/compartilhar_b.svg);
+}.compartilhar:hover{
+    background-color: var(--theme2);
+    background-image: url(/content/img/svg/compartilhar_w.svg);
+}
+.responder{
+    background-image: url(/content/img/svg/comentar_b.svg);
+}.responder:hover{
+    background-color: var(--theme2);
+    background-image: url(/content/img/svg/comentar_w.svg);
+}.curtir{
+    background-image: url(/content/img/svg/curtir_b.svg);
+}.curtir:hover{
+    background-color: var(--theme2);
+    background-image: url(/content/img/svg/curtir_w.svg);
+}
+.updatepicform input{
+    border:0px;
+    margin-bottom:5px;
+    padding:10px;
+    border-radius:5px;
+}

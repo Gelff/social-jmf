@@ -20,6 +20,16 @@ if(isset($_POST['entrar'])){
             $rU->bindParam(':emailLe',$emailL,PDO::PARAM_STR);
             $rU->execute();
             
+            $insertLog = "INSERT INTO logs(token,macaddr,type) VALUES(:logid,:logmac,:logtype)";
+            $tok = md5($emailL);
+            $logtype = 1;
+            $MAC = exec('getmac');
+            $MAC = strtok($MAC, ' ');
+            $logI = $conect->prepare($insertLog);
+            $logI->bindParam(':logid',$tok,PDO::PARAM_STR);
+            $logI->bindParam(':logmac',$MAC,PDO::PARAM_STR);
+            $logI->bindParam(':logtype',$logtype,PDO::PARAM_INT);
+            $logI->execute();
 
             header('Refresh: 0, /perfil/');
         }else{

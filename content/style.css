@@ -52,9 +52,7 @@ body{
     width:100% !important;
     height:100% !important;
 }
-.content img{
-    border-radius:100%;
-}.content div{
+.content div{
     color: white;
     width:500px;
     height:500px;
@@ -167,7 +165,6 @@ body{
     cursor: pointer;
 }.icon:hover::after{
     content:'Alterar Foto';
-    font-weight: bold;
     width:100%;
     height:100%;
     border-radius:100%;
@@ -216,17 +213,16 @@ body{
     background-color: transparent;
     height:40px;
     padding:10px;
+    margin-bottom:0px;
     transition: 0.2s;
     background-size: 10%;
     background-position: left;
     background-position-x: 10px;
     background-repeat: no-repeat;
     color: var(--profile1);
-    width:100%;
-}.leftbar a:first-child{
+}.leftbar button:first-child{
     margin-top:20px;
-}
-.leftbar button:hover{
+}.leftbar button:hover{
     background-color: var(--profile1);
     color: var(--profile2);
 }
@@ -379,4 +375,29 @@ body{
     font-size:15px;
     width:100%;
 
+}
+
+
+.bottombar{
+    width:100% !important;
+    height:100% !important;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    height: 14000px !important;
+    display: flex;
+    flex-direction: column !important;
+    justify-content: flex-start !important;
+    align-items: flex-start !important;
+}
+.meuamigo{
+    display:flex !important;
+    flex-direction:row !important;
+    color:black !important;
+}
+.meuamigo img{
+    background-color:black;
+    border-radius:10px;
+    margin-left:-480px;
+}.meuamigo b{
+    margin-left:-200px !important;
 }
