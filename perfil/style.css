@@ -24,7 +24,7 @@
     background-size:100%;
     background-repeat:no-repeat;
     background-position:center;
-    background-image: url(/content/img/capas/capa.png);
+    cursor: pointer;
 }.icon{
     background-color: var(--theme2);
     width:150px;

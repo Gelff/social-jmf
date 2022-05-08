@@ -1,4 +1,6 @@
-<?php 
+<?php
+    $url = $_SERVER['REQUEST_URI'];
+    echo $url;
     ob_start();
     session_start();
     if(isset($_SESSION['email'])&&(isset($_SESSION['senha']))){
@@ -52,8 +54,8 @@
                                 '<button name="fechar" style="border-radius:100%;background-color: red;color:white;width:30px;height:30px;border:0px;"><b>X</b></button>'+
                             '</div>'+
                             '<div>'+
-                                '<input pattern="([aA-zZ]+)" type="text" name="nome" placeholder="Nome" pattern="([aA-zZ]+)">'+
-                                '<input pattern="([aA-zZ]+)" type="text" name="sobrenome" placeholder="Sobrenome" pattern="([aA-zZ]+)">'+
+                                '<input maxlength="20" pattern="([aA-zZ]+)" type="text" name="nome" placeholder="Nome">'+
+                                '<input maxlength="20" pattern="([aA-zZ]+)" type="text" name="sobrenome" placeholder="Sobrenome">'+
                                 '<input type="email" name="email" placeholder="exemplo@email.com">'+
                                 '<input type="password" name="senha" placeholder="********">'+
                                 '<input class="caao" type="submit" name="cadastrar" value="Cadastrar" style="margin-top:20px;">'+

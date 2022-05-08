@@ -57,16 +57,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Perfil</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/x-icon" href="/content/img/alunos/<?php echo $pFoto; ?>">
 </head>
 <body>
     <section class="main">    
         <?php include("../content/pages/caminhos.html"); ?>
         <section class="content">
             <section class="infos">
-                <div class="cape">
-                    <div id="icon" class="icon" style="background-image: url(/content/img/alunos/<?php echo $pFoto; ?>">
-                        <div class="status st<?php echo $acstatus ?>"></div>
-                    </div>
+                <div class="cape" id="cape" style="background-image: url(/content/img/capas/<?php echo $pCapa; ?>);"></div>
+                <div id="icon" class="icon" style="background-image: url(/content/img/alunos/<?php echo $pFoto; ?>);">
+                    <div class="status st<?php echo $acstatus ?>"></div>
                 </div>
             </section>
             <section class="profile">
@@ -195,7 +195,7 @@
                             <form method="post">
                                 <div style="display:flex;flex-direction:column;align-items:center;">
                                     <button name="curtir" class="curtir" id="curtir" value="<?php echo $acIDPub; ?>"></button>
-                                    <b><?php echo $show->likes; ?></b>
+                                    <b><?php echo $show->likes ?></b>
                                 </div>
                                 <button class="responder"></button>
                                 <button class="compartilhar"></button>
@@ -266,12 +266,26 @@
                             '</div>'+
                         '</div>'
                     })
+                    cape = document.getElementById("cape")
+                    cape.addEventListener("click",()=>{
+                        document.querySelector("body").style="overflow:hidden"
+                        picchange.innerHTML = 
+                        '<div style="top:0px;display:flex; justify-content:center; align-items:center;position:absolute;width:100%;height:100%;background-color:rgba(0,0,0,0.5)">'+
+                            '<div style="background-color:white;padding:10px;border-radius:10px;">'+
+                                '<form class="updatepicform" action="" method="post" enctype="multipart/form-data" style="text-align:center;display:flex;flex-direction:column">'+
+                                    '<b>Alterar a Capa do Perfil</b><br>'+
+                                    '<input type="file" name="cape">'+
+                                    '<input type="submit" value="Salvar" name="altercape" style="background-color: green;color:white;">'+
+                                    '<input type="submit" value="Cancelar" id="cancelcape" style="background-color:brown;color:white;">'+
+                                '</form>'+
+                            '</div>'+
+                        '</div>'
+                    })
                 </script>
                 <?php } ?>
                 <?php 
+                    $formatP = ["png","jpg","jpeg","JPG"];
                     if(isset($_POST['alterfoto'])){
-                        
-                        $formatP = ["png","jpg","jpeg","JPG","gif"];
                         $extensao = pathinfo($_FILES['foto']['name'],PATHINFO_EXTENSION);
                         
                         if(in_array($extensao, $formatP)){
@@ -284,6 +298,23 @@
                                 $resultfoto->bindParam(':foto',$novoNome,PDO::PARAM_STR);
                                 $resultfoto->execute();
                                 $upar = move_uploaded_file($temporario, $pasta.$novoNome);
+                            }catch(PDOException $e){}
+                            header("Refresh:0");
+                        }
+                    }
+                    if(isset($_POST['altercape'])){
+                        $extensao = pathinfo($_FILES['cape']['name'],PATHINFO_EXTENSION);
+                        
+                        if(in_array($extensao, $formatP)){
+                            $pasta = "../content/img/capas/";
+                            $temporario = $_FILES['cape']['tmp_name'];
+                            $novoNome = md5($id.$nome.$token).".jpg";
+                            $mudarcapa = "UPDATE perfil SET capa=:capa WHERE id=$id";
+                            try{
+                                $resultcapa = $conect->prepare($mudarcapa);
+                                $resultcapa->bindParam(':capa',$novoNome,PDO::PARAM_STR);
+                                $resultcapa->execute();
+                                $uparcapa = move_uploaded_file($temporario, $pasta.$novoNome);
                             }catch(PDOException $e){}
                             header("Refresh:0");
                         }
