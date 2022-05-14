@@ -1,0 +1,24 @@
+*index*
+    cadastro
+    login
+
+*perfil*
+    foto da capa
+    foto do perfil
+    nome e sobrenome
+    biografia
+    turma
+    *publicações*
+        nome e sobrenome
+        data de publicação
+        *conteúdo*
+            texto
+            foto
+        curtir
+        excluir
+
+*amigos*
+    foto do amigo
+    nome e sobrenome
+    biografia
+    botão de excluir dos amigos

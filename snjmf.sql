@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 08-Maio-2022 às 01:58
+-- Tempo de geração: 15-Maio-2022 às 00:27
 -- Versão do servidor: 10.4.22-MariaDB
 -- versão do PHP: 8.1.2
 
@@ -30,8 +30,17 @@ SET time_zone = "+00:00";
 CREATE TABLE `amigos` (
   `pessoa1` int(11) NOT NULL,
   `pessoa2` int(11) NOT NULL,
-  `status` tinyint(4) NOT NULL
+  `status` tinyint(4) NOT NULL,
+  `id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Extraindo dados da tabela `amigos`
+--
+
+INSERT INTO `amigos` (`pessoa1`, `pessoa2`, `status`, `id`) VALUES
+(48, 44, 1, 36),
+(44, 48, 1, 37);
 
 -- --------------------------------------------------------
 
@@ -43,7 +52,7 @@ CREATE TABLE `anuncios` (
   `id` int(11) NOT NULL,
   `midia` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `texto` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `data` date NOT NULL DEFAULT current_timestamp()
+  `data` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -81,15 +90,8 @@ CREATE TABLE `contas` (
 --
 
 INSERT INTO `contas` (`id`, `nome`, `sobrenome`, `email`, `senha`, `status`, `verificado`, `criacao`) VALUES
-(17, 'Geronimo', 'Neto', 'geronimo@gmail.com', 'MTIz', 1, 0, 'Sun, 01 May 22 00:27:56 +0200'),
-(20, 'Camila', 'Pedro', 'gg@gmail.com', 'MTIz', 0, 0, 'Sun, 01 May 22 01:48:31 +0200'),
-(21, 'Administrador', 'Supremo', 'mobile@gmail.com', 'MTIz', 0, 0, 'Sun, 01 May 22 02:42:27 +0200'),
-(22, 'Thiago', 'Augusto', 'teste@teste.teste.te', 'dGVzdGU=', 1, 0, 'Sun, 01 May 22 02:59:41 +0200'),
-(23, 'Leticiaa', 'Moura', 'leticialindaa@gmail.com', 'MTIz', 0, 0, 'Sun, 01 May 22 03:18:21 +0200'),
-(24, 'Lula', 'Honesto', 'esquerciasenha@gmail.com', 'MTIzNA==', 1, 0, 'Sun, 01 May 22 03:19:37 +0200'),
-(25, 'Lídia ', 'Almeida ', 'lidiaalmeidaw@gmail.com', 'amVzdXNjcmlzdG8uY29tMDA=', 0, 0, 'Sun, 01 May 22 03:42:23 +0200'),
-(26, 'Gaby', 'Schneider', 'gabykkj@gmail.com', 'MDk4NzY1NDMyMQ==', 0, 0, 'Sun, 08 May 22 01:41:03 +0200'),
-(27, 'tioe', 'ticole', 'newcon@gmail.com', 'MTIz', 0, 0, 'Sun, 08 May 22 01:50:53 +0200');
+(44, 'Geronimo', 'Neto', 'geronimo@gmail.com', 'Z2VsZmZnZWxmZjAwMQ==', 0, 0, 'Sat, 14 May 22 21:48:12 +0200'),
+(48, 'Admin', 'Admin', 'admin@gmail.com', 'MTIzNDU2Nzg=', 0, 0, 'Sat, 14 May 22 23:58:28 +0200');
 
 -- --------------------------------------------------------
 
@@ -108,14 +110,7 @@ CREATE TABLE `curtidas` (
 --
 
 INSERT INTO `curtidas` (`id`, `idPub`, `idConta`) VALUES
-(11, 149, 17),
-(13, 148, 17),
-(15, 147, 17),
-(16, 151, 21),
-(17, 149, 21),
-(19, 148, 21),
-(21, 150, 21),
-(22, 147, 21);
+(45, 172, 44);
 
 -- --------------------------------------------------------
 
@@ -127,7 +122,7 @@ CREATE TABLE `eventos` (
   `id` int(11) NOT NULL,
   `nome` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `descricao` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `data` date NOT NULL
+  `data` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -138,67 +133,58 @@ CREATE TABLE `eventos` (
 
 CREATE TABLE `logs` (
   `token` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `data` date NOT NULL DEFAULT current_timestamp(),
+  `data` datetime NOT NULL DEFAULT current_timestamp(),
   `type` tinyint(4) NOT NULL,
-  `macaddr` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL
+  `macaddr` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `datetime` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Extraindo dados da tabela `logs`
 --
 
-INSERT INTO `logs` (`token`, `data`, `type`, `macaddr`) VALUES
-('geronimo@gmail.com', '2022-05-07', 1, ''),
-('geronimo@gmail.com', '2022-05-07', 1, '::1'),
-('geronimo@gmail.com', '2022-05-07', 1, '12-02-F8-0F-DD-D8'),
-('geronimo@gmail.com', '2022-05-07', 1, '12-02-F8-0F-DD-D8'),
-('mobile@gmail.com', '2022-05-07', 1, '12-02-F8-0F-DD-D8'),
-('87bda2750c425471aa795969ef2c3750', '2022-05-07', 1, '12-02-F8-0F-DD-D8'),
-('87bda2750c425471aa795969ef2c3750', '2022-05-07', 0, '12-02-F8-0F-DD-D8'),
-('71fc8cafd7bfeb4aa7e0dcce50583503', '2022-05-07', 1, '12-02-F8-0F-DD-D8'),
-('71fc8cafd7bfeb4aa7e0dcce50583503', '2022-05-07', 0, '12-02-F8-0F-DD-D8'),
-('71fc8cafd7bfeb4aa7e0dcce50583503', '2022-05-07', 1, '12-02-F8-0F-DD-D8'),
-('71fc8cafd7bfeb4aa7e0dcce50583503', '2022-05-07', 0, '12-02-F8-0F-DD-D8'),
-('71fc8cafd7bfeb4aa7e0dcce50583503', '2022-05-07', 1, '12-02-F8-0F-DD-D8'),
-('c331b13453204942e7bf573728cd0d63', '2022-05-07', 0, '12-02-F8-0F-DD-D8'),
-('c331b13453204942e7bf573728cd0d63', '2022-05-07', 1, '12-02-F8-0F-DD-D8'),
-('c331b13453204942e7bf573728cd0d63', '2022-05-07', 0, '12-02-F8-0F-DD-D8'),
-('87bda2750c425471aa795969ef2c3750', '2022-05-07', 1, '12-02-F8-0F-DD-D8'),
-('87bda2750c425471aa795969ef2c3750', '2022-05-07', 0, '12-02-F8-0F-DD-D8'),
-('c331b13453204942e7bf573728cd0d63', '2022-05-07', 1, '12-02-F8-0F-DD-D8'),
-('c331b13453204942e7bf573728cd0d63', '2022-05-07', 0, '12-02-F8-0F-DD-D8'),
-('87bda2750c425471aa795969ef2c3750', '2022-05-07', 1, '12-02-F8-0F-DD-D8'),
-('c331b13453204942e7bf573728cd0d63', '2022-05-07', 1, '12-02-F8-0F-DD-D8'),
-('71fc8cafd7bfeb4aa7e0dcce50583503', '2022-05-07', 0, '12-02-F8-0F-DD-D8'),
-('71fc8cafd7bfeb4aa7e0dcce50583503', '2022-05-07', 1, '12-02-F8-0F-DD-D8'),
-('87bda2750c425471aa795969ef2c3750', '2022-05-07', 0, '12-02-F8-0F-DD-D8'),
-('87bda2750c425471aa795969ef2c3750', '2022-05-07', 1, '12-02-F8-0F-DD-D8'),
-('c331b13453204942e7bf573728cd0d63', '2022-05-07', 1, '12-02-F8-0F-DD-D8'),
-('c331b13453204942e7bf573728cd0d63', '2022-05-07', 0, '12-02-F8-0F-DD-D8'),
-('87bda2750c425471aa795969ef2c3750', '2022-05-07', 1, '12-02-F8-0F-DD-D8'),
-('c331b13453204942e7bf573728cd0d63', '2022-05-07', 1, '12-02-F8-0F-DD-D8'),
-('87bda2750c425471aa795969ef2c3750', '2022-05-07', 1, '12-02-F8-0F-DD-D8'),
-('b58e7f4aacaa992fa8ee8dc670d23923', '2022-05-07', 1, '12-02-F8-0F-DD-D8'),
-('71fc8cafd7bfeb4aa7e0dcce50583503', '2022-05-07', 1, '12-02-F8-0F-DD-D8'),
-('b58e7f4aacaa992fa8ee8dc670d23923', '2022-05-07', 1, '12-02-F8-0F-DD-D8'),
-('8050c44288d8831417d8d37ddb9f64aa', '2022-05-07', 1, '12-02-F8-0F-DD-D8'),
-('87bda2750c425471aa795969ef2c3750', '2022-05-07', 1, '12-02-F8-0F-DD-D8'),
-('8050c44288d8831417d8d37ddb9f64aa', '2022-05-07', 0, '12-02-F8-0F-DD-D8'),
-('8050c44288d8831417d8d37ddb9f64aa', '2022-05-07', 1, '12-02-F8-0F-DD-D8'),
-('8050c44288d8831417d8d37ddb9f64aa', '2022-05-07', 0, '12-02-F8-0F-DD-D8'),
-('87bda2750c425471aa795969ef2c3750', '2022-05-07', 0, '12-02-F8-0F-DD-D8'),
-('87bda2750c425471aa795969ef2c3750', '2022-05-07', 0, '12-02-F8-0F-DD-D8'),
-('87bda2750c425471aa795969ef2c3750', '2022-05-07', 1, '12-02-F8-0F-DD-D8'),
-('87bda2750c425471aa795969ef2c3750', '2022-05-07', 0, '12-02-F8-0F-DD-D8'),
-('87bda2750c425471aa795969ef2c3750', '2022-05-07', 1, '12-02-F8-0F-DD-D8'),
-('87bda2750c425471aa795969ef2c3750', '2022-05-07', 0, '12-02-F8-0F-DD-D8'),
-('87bda2750c425471aa795969ef2c3750', '2022-05-07', 1, '12-02-F8-0F-DD-D8'),
-('c331b13453204942e7bf573728cd0d63', '2022-05-07', 1, '12-02-F8-0F-DD-D8'),
-('c331b13453204942e7bf573728cd0d63', '2022-05-07', 0, '12-02-F8-0F-DD-D8'),
-('07c942f36728e337594ab76f65ef335f', '2022-05-07', 1, '12-02-F8-0F-DD-D8'),
-('07c942f36728e337594ab76f65ef335f', '2022-05-07', 0, '12-02-F8-0F-DD-D8'),
-('87bda2750c425471aa795969ef2c3750', '2022-05-07', 0, '12-02-F8-0F-DD-D8'),
-('87bda2750c425471aa795969ef2c3750', '2022-05-07', 1, '12-02-F8-0F-DD-D8');
+INSERT INTO `logs` (`token`, `data`, `type`, `macaddr`, `datetime`) VALUES
+('87bda2750c425471aa795969ef2c3750', '2022-05-14 16:46:08', 0, '12-02-F8-0F-DD-D8', '2022-05-14 18:07:27'),
+('87bda2750c425471aa795969ef2c3750', '2022-05-14 16:47:00', 0, '12-02-F8-0F-DD-D8', '2022-05-14 18:07:27'),
+('87bda2750c425471aa795969ef2c3750', '2022-05-14 16:48:54', 1, '12-02-F8-0F-DD-D8', '2022-05-14 18:07:27'),
+('87bda2750c425471aa795969ef2c3750', '2022-05-14 16:55:29', 0, '12-02-F8-0F-DD-D8', '2022-05-14 18:07:27'),
+('75d23af433e0cea4c0e45a56dba18b30', '2022-05-14 16:56:10', 1, '12-02-F8-0F-DD-D8', '2022-05-14 18:07:27'),
+('87bda2750c425471aa795969ef2c3750', '2022-05-14 17:26:04', 1, '12-02-F8-0F-DD-D8', '2022-05-14 18:07:27'),
+('75d23af433e0cea4c0e45a56dba18b30', '2022-05-14 18:00:32', 0, '12-02-F8-0F-DD-D8', '2022-05-14 18:07:27'),
+('75d23af433e0cea4c0e45a56dba18b30', '2022-05-14 18:00:52', 1, '12-02-F8-0F-DD-D8', '2022-05-14 18:07:27'),
+('75d23af433e0cea4c0e45a56dba18b30', '2022-05-14 18:06:15', 0, '12-02-F8-0F-DD-D8', '2022-05-14 18:07:27'),
+('87bda2750c425471aa795969ef2c3750', '2022-05-14 18:07:56', 1, '12-02-F8-0F-DD-D8', '2022-05-14 18:07:56'),
+('87bda2750c425471aa795969ef2c3750', '2022-05-14 18:12:15', 0, '12-02-F8-0F-DD-D8', '2022-05-14 18:12:15'),
+('d1ca18cecaa470117672980092647dfe', '2022-05-14 18:12:40', 1, '12-02-F8-0F-DD-D8', '2022-05-14 18:12:40'),
+('d1ca18cecaa470117672980092647dfe', '2022-05-14 18:16:10', 0, '12-02-F8-0F-DD-D8', '2022-05-14 18:16:10'),
+('87bda2750c425471aa795969ef2c3750', '2022-05-14 18:16:32', 1, '12-02-F8-0F-DD-D8', '2022-05-14 18:16:32'),
+('87bda2750c425471aa795969ef2c3750', '2022-05-14 18:18:49', 0, '12-02-F8-0F-DD-D8', '2022-05-14 18:18:49'),
+('d1ca18cecaa470117672980092647dfe', '2022-05-14 18:26:17', 1, '12-02-F8-0F-DD-D8', '2022-05-14 18:26:17'),
+('87bda2750c425471aa795969ef2c3750', '2022-05-14 18:27:14', 0, '12-02-F8-0F-DD-D8', '2022-05-14 18:27:14'),
+('87bda2750c425471aa795969ef2c3750', '2022-05-14 18:27:31', 1, '12-02-F8-0F-DD-D8', '2022-05-14 18:27:31'),
+('d1ca18cecaa470117672980092647dfe', '2022-05-14 18:34:14', 0, '12-02-F8-0F-DD-D8', '2022-05-14 18:34:14'),
+('1450ac4f6a279fe0d3c0341f6b53e2d5', '2022-05-14 18:34:55', 1, '12-02-F8-0F-DD-D8', '2022-05-14 18:34:55'),
+('1450ac4f6a279fe0d3c0341f6b53e2d5', '2022-05-14 18:36:42', 0, '12-02-F8-0F-DD-D8', '2022-05-14 18:36:42'),
+('3f009d72559f51e7e454b16e5d0687a1', '2022-05-14 18:39:37', 1, '12-02-F8-0F-DD-D8', '2022-05-14 18:39:37'),
+('3f009d72559f51e7e454b16e5d0687a1', '2022-05-14 18:39:51', 0, '12-02-F8-0F-DD-D8', '2022-05-14 18:39:51'),
+('70b03db954aa45fc2559e85f5d5bd13e', '2022-05-14 18:40:12', 1, '12-02-F8-0F-DD-D8', '2022-05-14 18:40:12'),
+('70b03db954aa45fc2559e85f5d5bd13e', '2022-05-14 18:45:57', 0, '12-02-F8-0F-DD-D8', '2022-05-14 18:45:57'),
+('3f009d72559f51e7e454b16e5d0687a1', '2022-05-14 18:48:35', 1, '12-02-F8-0F-DD-D8', '2022-05-14 18:48:35'),
+('3f009d72559f51e7e454b16e5d0687a1', '2022-05-14 18:48:49', 0, '12-02-F8-0F-DD-D8', '2022-05-14 18:48:49'),
+('87bda2750c425471aa795969ef2c3750', '2022-05-14 18:51:40', 1, '12-02-F8-0F-DD-D8', '2022-05-14 18:51:40'),
+('87bda2750c425471aa795969ef2c3750', '2022-05-14 18:58:01', 0, '12-02-F8-0F-DD-D8', '2022-05-14 18:58:01'),
+('75d23af433e0cea4c0e45a56dba18b30', '2022-05-14 18:58:52', 1, '12-02-F8-0F-DD-D8', '2022-05-14 18:58:52'),
+('87bda2750c425471aa795969ef2c3750', '2022-05-14 19:09:45', 0, '12-02-F8-0F-DD-D8', '2022-05-14 19:09:45'),
+('d41d8cd98f00b204e9800998ecf8427e', '2022-05-14 19:09:46', 0, '12-02-F8-0F-DD-D8', '2022-05-14 19:09:46'),
+('87bda2750c425471aa795969ef2c3750', '2022-05-14 19:10:11', 1, '12-02-F8-0F-DD-D8', '2022-05-14 19:10:11'),
+('87bda2750c425471aa795969ef2c3750', '2022-05-14 19:10:31', 0, '12-02-F8-0F-DD-D8', '2022-05-14 19:10:31'),
+('d41d8cd98f00b204e9800998ecf8427e', '2022-05-14 19:10:32', 0, '12-02-F8-0F-DD-D8', '2022-05-14 19:10:32'),
+('75d23af433e0cea4c0e45a56dba18b30', '2022-05-14 19:10:40', 1, '12-02-F8-0F-DD-D8', '2022-05-14 19:10:40'),
+('75d23af433e0cea4c0e45a56dba18b30', '2022-05-14 19:11:11', 0, '12-02-F8-0F-DD-D8', '2022-05-14 19:11:11'),
+('d41d8cd98f00b204e9800998ecf8427e', '2022-05-14 19:11:12', 0, '12-02-F8-0F-DD-D8', '2022-05-14 19:11:12'),
+('75d23af433e0cea4c0e45a56dba18b30', '2022-05-14 19:11:32', 0, '12-02-F8-0F-DD-D8', '2022-05-14 19:11:32'),
+('87bda2750c425471aa795969ef2c3750', '2022-05-14 19:24:58', 1, '12-02-F8-0F-DD-D8', '2022-05-14 19:24:58'),
+('87bda2750c425471aa795969ef2c3750', '2022-05-14 19:27:01', 0, '12-02-F8-0F-DD-D8', '2022-05-14 19:27:01');
 
 -- --------------------------------------------------------
 
@@ -220,15 +206,8 @@ CREATE TABLE `perfil` (
 --
 
 INSERT INTO `perfil` (`id`, `apelido`, `capa`, `biografia`, `turma`, `foto`) VALUES
-(17, 'cumia', '9452eacb4debf75dd9af48dab8546aba.jpg', 'ナイトメア Nightmare', 'inf3', '9452eacb4debf75dd9af48dab8546aba.jpg'),
-(20, '', 'capa.png', 'minha bio', 'none', 'nil.png'),
-(21, '', '1a56d88146ca93ff2ec717bd7f40eb9f.jpg', 'Sic Mundus Creatus Est', 'enf3', '1a56d88146ca93ff2ec717bd7f40eb9f.jpg'),
-(22, '', 'capa.png', 'Picture a book', 'none', '6ec44141a8c1d396d7c388a24ee62f54.jpg'),
-(23, '', 'capa.png', '', 'none', 'nil.png'),
-(24, '', 'capa.png', 'VOTE 13', 'inf3', 'cb554fb291f796b2f9fab21447fd5a62.jpg'),
-(25, '', 'capa.png', 'Hello =D', 'inf3', 'c658eb1818ad2779ed1ae0daf442f81a.jpg'),
-(26, '', 'capa.png', 'x_x', 'inf1', 'cb86f7099aa10cf7aec6d9fdcc3b16a0.jpg'),
-(27, '', 'capa.png', 'Escreva algo legal :)', 'none', 'nil.png');
+(44, '', '91277368c0f1df9f9f61dc6d15a41173.jpg', 'bom dia sdfaasdfasd', 'inf3', '91277368c0f1df9f9f61dc6d15a41173.jpg'),
+(48, '', 'capa.png', 'Escreva algo legal :)', 'none', 'h1.png');
 
 -- --------------------------------------------------------
 
@@ -238,7 +217,7 @@ INSERT INTO `perfil` (`id`, `apelido`, `capa`, `biografia`, `turma`, `foto`) VAL
 
 CREATE TABLE `publicacoes` (
   `id` int(11) NOT NULL,
-  `data` date NOT NULL DEFAULT current_timestamp(),
+  `data` datetime NOT NULL DEFAULT current_timestamp(),
   `midia` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `texto` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `likes` int(11) NOT NULL DEFAULT 0,
@@ -254,14 +233,9 @@ CREATE TABLE `publicacoes` (
 --
 
 INSERT INTO `publicacoes` (`id`, `data`, `midia`, `texto`, `likes`, `privacidade`, `reacoes`, `denuncias`, `idConta`, `idPerfil`) VALUES
-(141, '2022-05-07', '9da6a5d7d942d178ff1302cf79b47282.jpg', 'The batman', 0, 0, 0, 0, 17, 17),
-(142, '2022-05-07', 'a078401b51f247f2667fbbf8421c95ec.jpg', 'cosplay de sonic fdskkk', 0, 0, 0, 0, 17, 17),
-(143, '2022-05-07', '5af1ac15e51d1c6e536b44453c1a6ee8.jpg', 'amogus pew pew', 0, 0, 0, 0, 17, 17),
-(147, '2022-05-07', 'nil', 'Pensando na morte da Bezerra...', 2, 0, 0, 0, 25, 25),
-(148, '2022-05-07', 'a65a2428eb5829d3ab03d81e80a5b805.jpg', 'paiasaasdoasodska', 2, 0, 0, 0, 17, 17),
-(149, '2022-05-07', 'nil', 'ar condicionado ', 2, 0, 0, 0, 17, 17),
-(150, '2022-05-07', 'c36b794d1691bf1adb9fe109cf89e294.jpg', 'rias', 1, 0, 0, 0, 17, 17),
-(151, '2022-05-07', 'bd3c88111b2961f6990c40f99572e42f.jpg', 'Matrix', 1, 0, 0, 0, 21, 21);
+(172, '2022-05-14 18:12:11', 'nil', 'ola ola', 2, 0, 0, 0, 44, 44),
+(175, '2022-05-14 19:03:08', 'nil', 'asdfasdf', 0, 0, 0, 0, 44, 44),
+(176, '2022-05-14 19:03:13', '7c49980c0cf728459c884c035c308ea0.jpg', 'asdf', 0, 0, 0, 0, 44, 44);
 
 -- --------------------------------------------------------
 
@@ -271,13 +245,26 @@ INSERT INTO `publicacoes` (`id`, `data`, `midia`, `texto`, `likes`, `privacidade
 
 CREATE TABLE `status` (
   `manutencao` tinyint(4) NOT NULL,
-  `ativos` int(11) NOT NULL,
-  `inativos` int(11) NOT NULL
+  `onlines` int(11) NOT NULL,
+  `id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Extraindo dados da tabela `status`
+--
+
+INSERT INTO `status` (`manutencao`, `onlines`, `id`) VALUES
+(0, 0, 1);
 
 --
 -- Índices para tabelas despejadas
 --
+
+--
+-- Índices para tabela `amigos`
+--
+ALTER TABLE `amigos`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Índices para tabela `anuncios`
@@ -322,8 +309,20 @@ ALTER TABLE `publicacoes`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Índices para tabela `status`
+--
+ALTER TABLE `status`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT de tabelas despejadas
 --
+
+--
+-- AUTO_INCREMENT de tabela `amigos`
+--
+ALTER TABLE `amigos`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- AUTO_INCREMENT de tabela `anuncios`
@@ -341,13 +340,13 @@ ALTER TABLE `comentarios`
 -- AUTO_INCREMENT de tabela `contas`
 --
 ALTER TABLE `contas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
 
 --
 -- AUTO_INCREMENT de tabela `curtidas`
 --
 ALTER TABLE `curtidas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
 
 --
 -- AUTO_INCREMENT de tabela `eventos`
@@ -359,7 +358,13 @@ ALTER TABLE `eventos`
 -- AUTO_INCREMENT de tabela `publicacoes`
 --
 ALTER TABLE `publicacoes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=152;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=177;
+
+--
+-- AUTO_INCREMENT de tabela `status`
+--
+ALTER TABLE `status`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

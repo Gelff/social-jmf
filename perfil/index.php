@@ -19,7 +19,7 @@
         } 
     } catch(PDOException $e){
     }
-
+    if($ac->status==0){header("Refresh:0,/content/code/sair.php?d=1");}
     $acID = $_GET['conta'];
     $acSelect = "SELECT * FROM contas WHERE id=:acID";
     try{
@@ -59,7 +59,7 @@
     <link rel="stylesheet" href="style.css">
     <link rel="icon" type="image/x-icon" href="/content/img/alunos/<?php echo $pFoto; ?>">
 </head>
-<body>
+<body style="background-color:var(--theme1)">
     <section class="main">    
         <?php include("../content/pages/caminhos.html"); ?>
         <section class="content">
@@ -69,6 +69,9 @@
                     <div class="status st<?php echo $acstatus ?>"></div>
                 </div>
             </section>
+            <?php if($id!=$acID){ ?>
+            <form method="post"><button name="addfriend" class="btnaddamigo">Adicionar</button></form>
+            <?php } include_once("../content/code/adicionaramigo.php"); ?>
             <section class="profile">
                 <div class="namesdiv">
                     <h3 style="margin-left:20px;"><?php echo "$acnome $acsobrenome <button class='verificado$acverificado'></button>"; ?></h3>
@@ -113,21 +116,7 @@
                             <?php } ?>
                         </div>
                     </form>
-                    <?php 
-                        if(isset($_POST['savealtbio'])){
-                            $alterbio = $_POST["alterbio"];
-                            $alterturma = $_POST['turmas'];
-                            $selectbio = "UPDATE perfil SET biografia=:altb,turma=:alttu WHERE id=$id;";
-                            try{
-                                $resultadobio = $conect->prepare($selectbio);
-                                $resultadobio->bindParam(':altb',$alterbio,PDO::PARAM_STR);
-                                $resultadobio->bindParam(':alttu',$alterturma,PDO::PARAM_STR);
-                                $resultadobio->execute();
-                                header("Refresh:0");
-                            }catch(PDOException $e) {
-                            }
-                        }
-                    ?>
+                    <?php include_once("../content/code/alterarbiografia.php"); ?>
                 </div>
 
                 <?php if($acID==$id) { ?>
@@ -138,188 +127,14 @@
                     </div>
                     <input type="submit" value=">" name="publik" class="publikinput">
                 </form>
-                <?php } ?>
-                <div class="publicacoes">
-                    <?php
-                        if(isset($_POST['publik'])){
-
-                            $textin = $_POST["textin"];
-                            #if(str_contains("$textin", ' ')){
-                            if($textin!=""){
-                                $select = "INSERT INTO publicacoes(midia,texto,idConta,idPerfil) VALUES(:midia,:textin,:idc,:idpe)";
-                                try{
-                                    $formatPp = ["png","jpg","jpeg","JPG","gif"];
-                                    $extensaop = pathinfo($_FILES['fotopub']['name'],PATHINFO_EXTENSION);
-                                    if(in_array($extensaop, $formatPp)){
-                                        $pasta = "../content/img/pub/";
-                                        $temporario = $_FILES['fotopub']['tmp_name'];
-                                        $novoNome = md5($acID.$nome.$token.uniqid()).".jpg";
-                                        $uparp = move_uploaded_file($temporario, $pasta.$novoNome);
-                                    } if($novoNome==""){$novoNome="nil";}
-                                    $resultado = $conect->prepare($select);
-                                    $resultado->bindParam(':midia',$novoNome,PDO::PARAM_STR);
-                                    $resultado->bindParam(':textin',$textin,PDO::PARAM_STR);
-                                    $resultado->bindParam(':idc',$id,PDO::PARAM_STR);
-                                    $resultado->bindParam(':idpe',$acID,PDO::PARAM_STR);
-                                    $resultado->execute();
-
-
-                                    header("Refresh:0");
-                                }catch(PDOException $e) {
-                                }
-                            }else{
-                                echo "<b style='color:red; width:100%;text-align:center;'>Insira ao menos 1 palavra para publicar!</b>";
-                                header("Refresh:2,./$acID");
-                            }
-                        }
-                        
-                        $select = "SELECT * FROM publicacoes WHERE idPerfil=$acID ORDER BY id DESC";
-                        try{
-                            $resultado = $conect->prepare($select);
-                            $resultado->execute();
-                            if($resultado->rowCount()>0){
-                                while($show = $resultado->FETCH(PDO::FETCH_OBJ)){
-                                    $acIDPub = $show->id;
-                                    $idContala = $show->idConta;
-                                    ?>
-                    <div class="pub">
-                        <div class="minicon" style="background-image: url(/content/img/alunos/<?php echo $pFoto; ?>"></div>
-                        <div>
-                            <div style="display:flex;flex-direction:column;align-items:flex-start;justify-content:center;">
-                                <a><b><?php echo $acnome." ".$acsobrenome; ?></b> - <?php echo $show->data; ?></a>
-                                <a class="textpub"><?php echo $show->texto; ?></a>
-                                <?php if($show->midia!="nil") { ?>
-                                    <img style="border-radius:10px;" width="250" src="/content/img/pub/<?php echo $show->midia; ?>">
-                                <?php } ?>
-                            </div>
-                            <form method="post">
-                                <div style="display:flex;flex-direction:column;align-items:center;">
-                                    <button name="curtir" class="curtir" id="curtir" value="<?php echo $acIDPub; ?>"></button>
-                                    <b><?php echo $show->likes ?></b>
-                                </div>
-                                <button class="responder"></button>
-                                <button class="compartilhar"></button>
-                                <?php if($acID==$id) { ?>
-                                <button name="excluir" class="excluir" value="<?php echo $acIDPub; ?>"></button>
-                                <?php } ?>
-                            </form>
-                        </div>
-                    </div>
-
-                    <?php }}}catch(PDOException $e){ echo '<strong>ERRO DE PDO= </strong>'.$e->getMessage();} ?>
-                    <?php
-                        if(isset($_POST['excluir'])){
-                            $exc = $_POST['excluir'];
-                            $deletar = "DELETE FROM publicacoes WHERE id=$exc AND idConta=$acID";
-                            $deletare = $conect->prepare($deletar);
-                            $deletare->execute();
-                            header("Refresh:0");
-                        }
-                        if(isset($_POST['curtir'])){
-                            $cut = $_POST['curtir'];
-                            $inserircurtida = "INSERT INTO curtidas(idPub,idConta) VALUES(:idPub,:idConta)";
-                            try{
-                                $curtidas = "SELECT * FROM curtidas WHERE idPub=:vidPub AND idConta=:vidConta";
-                                $getcurtidas = $conect->prepare($curtidas);
-                                $getcurtidas->bindParam(':vidPub',$cut,PDO::PARAM_INT);
-                                $getcurtidas->bindParam(':vidConta',$id,PDO::PARAM_INT);
-                                $getcurtidas->execute();
-                                if($getcurtidas->rowCount()>0){
-                                    $removercurtida = "DELETE FROM curtidas WHERE idPub=$cut AND idConta=$id";
-                                    $resultcurtir = $conect->prepare($removercurtida);
-                                    $resultcurtir->execute();
-                                    $curtirr = "UPDATE publicacoes SET likes=likes-1 WHERE id=$cut";
-                                    $curtirre = $conect->prepare($curtirr);
-                                    $curtirre->execute();
-                                }else{
-                                    $resultcurtir = $conect->prepare($inserircurtida);
-                                    $resultcurtir->bindParam(':idPub',$cut,PDO::PARAM_INT);
-                                    $resultcurtir->bindParam(':idConta',$id,PDO::PARAM_INT);
-                                    $resultcurtir->execute();
-                                    $curtirr = "UPDATE publicacoes SET likes=likes+1 WHERE id=$cut";
-                                    $curtirre = $conect->prepare($curtirr);
-                                    $curtirre->execute();
-                                }
-                            }catch(PDOException $e){}
-                            header("Refresh:0");
-                        }
-                        
-                    ?>
-                </div>
+                <?php } include_once("../content/code/publicacoes.php"); ?>
                 <div id="picchange">
                 </div>
                 <?php if($acID==$id) { ?>
-                <script>
-                    picchange = document.getElementById("picchange")
-                    icon = document.getElementById("icon")
-                    icon.addEventListener("click",()=>{
-                        document.querySelector("body").style="overflow:hidden"
-                        picchange.innerHTML = 
-                        '<div style="top:0px;display:flex; justify-content:center; align-items:center;position:absolute;width:100%;height:100%;background-color:rgba(0,0,0,0.5)">'+
-                            '<div style="background-color:white;padding:10px;border-radius:10px;">'+
-                                '<form class="updatepicform" action="" method="post" enctype="multipart/form-data" style="text-align:center;display:flex;flex-direction:column">'+
-                                    '<b>Alterar foto do Perfil</b><br>'+
-                                    '<input type="file" name="foto">'+
-                                    '<input type="submit" value="Salvar" name="alterfoto" style="background-color: green;color:white;">'+
-                                    '<input type="submit" value="Cancelar" id="cancelfoto" style="background-color:brown;color:white;">'+
-                                '</form>'+
-                            '</div>'+
-                        '</div>'
-                    })
-                    cape = document.getElementById("cape")
-                    cape.addEventListener("click",()=>{
-                        document.querySelector("body").style="overflow:hidden"
-                        picchange.innerHTML = 
-                        '<div style="top:0px;display:flex; justify-content:center; align-items:center;position:absolute;width:100%;height:100%;background-color:rgba(0,0,0,0.5)">'+
-                            '<div style="background-color:white;padding:10px;border-radius:10px;">'+
-                                '<form class="updatepicform" action="" method="post" enctype="multipart/form-data" style="text-align:center;display:flex;flex-direction:column">'+
-                                    '<b>Alterar a Capa do Perfil</b><br>'+
-                                    '<input type="file" name="cape">'+
-                                    '<input type="submit" value="Salvar" name="altercape" style="background-color: green;color:white;">'+
-                                    '<input type="submit" value="Cancelar" id="cancelcape" style="background-color:brown;color:white;">'+
-                                '</form>'+
-                            '</div>'+
-                        '</div>'
-                    })
+                <script src="../content/code/imagem.js">
+                    
                 </script>
-                <?php } ?>
-                <?php 
-                    $formatP = ["png","jpg","jpeg","JPG"];
-                    if(isset($_POST['alterfoto'])){
-                        $extensao = pathinfo($_FILES['foto']['name'],PATHINFO_EXTENSION);
-                        
-                        if(in_array($extensao, $formatP)){
-                            $pasta = "../content/img/alunos/";
-                            $temporario = $_FILES['foto']['tmp_name'];
-                            $novoNome = md5($id.$nome.$token).".jpg";
-                            $mudarfoto = "UPDATE perfil SET foto=:foto WHERE id=$id";
-                            try{
-                                $resultfoto = $conect->prepare($mudarfoto);
-                                $resultfoto->bindParam(':foto',$novoNome,PDO::PARAM_STR);
-                                $resultfoto->execute();
-                                $upar = move_uploaded_file($temporario, $pasta.$novoNome);
-                            }catch(PDOException $e){}
-                            header("Refresh:0");
-                        }
-                    }
-                    if(isset($_POST['altercape'])){
-                        $extensao = pathinfo($_FILES['cape']['name'],PATHINFO_EXTENSION);
-                        
-                        if(in_array($extensao, $formatP)){
-                            $pasta = "../content/img/capas/";
-                            $temporario = $_FILES['cape']['tmp_name'];
-                            $novoNome = md5($id.$nome.$token).".jpg";
-                            $mudarcapa = "UPDATE perfil SET capa=:capa WHERE id=$id";
-                            try{
-                                $resultcapa = $conect->prepare($mudarcapa);
-                                $resultcapa->bindParam(':capa',$novoNome,PDO::PARAM_STR);
-                                $resultcapa->execute();
-                                $uparcapa = move_uploaded_file($temporario, $pasta.$novoNome);
-                            }catch(PDOException $e){}
-                            header("Refresh:0");
-                        }
-                    }
-                ?>
+                <?php } include_once("../content/code/imagem.php"); ?>
 
             </section>
         </section>

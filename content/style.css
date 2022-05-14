@@ -1,7 +1,3 @@
-::-webkit-scrollbar{width: 8px; height:8px;}
-::-webkit-scrollbar-track {background: var(--profile2);}
-::-webkit-scrollbar-thumb {background: black;}
-::-webkit-scrollbar-thumb:hover {background: #1e1e1e;}
 :root{
     --main: #ffb90a;
     --mainHover: #da9e09;
@@ -400,4 +396,10 @@ body{
     margin-left:-480px;
 }.meuamigo b{
     margin-left:-200px !important;
+}
+
+.botaoentrar{
+    cursor: pointer;
+}.botaoentrar:hover{
+    box-shadow: inset 0px 0px 100px 10px rgba(255, 255, 255, 0.225) !important;
 }

@@ -1,5 +1,6 @@
 <?php 
 if(isset($_POST['cadastrar'])){
+    $genero = $_POST['genero'];
     $nome = $_POST['nome'];
     $sobrenome = $_POST['sobrenome'];
     $email = $_POST['email'];
@@ -38,7 +39,14 @@ if(isset($_POST['cadastrar'])){
                     $capa = "capa.png";
                     $biografia = "Escreva algo legal :)";
                     $turma = "none";
-                    $foto = "nil.png";
+
+                    if($genero=="o"){
+                        $fotos = ["m1","m2","m3","h1","h2","h3"];
+                        $foto = $fotos[random_int(0,5)].".png";
+                    }else{
+                        $foto = $genero.random_int(1,3).".png";
+                    }
+
                     $rc = $resulter->fetch(PDO::FETCH_OBJ);
                     $idCheck = $rc->id;
                     $perfil = "INSERT INTO perfil(id,apelido,capa,biografia,turma,foto) VALUES(:idp,:apelido,:capa,:biografia,:turma,:foto)";
