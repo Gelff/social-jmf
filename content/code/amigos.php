@@ -21,8 +21,8 @@
     <div class="amigo">
         <div>
             <img src="/content/img/alunos/<?php echo $amigoinfoperfil->foto; ?>" width="70" height="70">
-            <div><?php $status = ["<b style='color:gray;'>Ausente</b>","<b style='color:green;'>Online</b>","<b style='color:red;'>Ocupado</b>"] ?>
-                <b><a href="/perfil/<?php echo $amigoinfo->id; ?>"><?php echo $amigoinfo->nome." ".$amigoinfo->sobrenome; ?></a> <?php echo $status[$amigoinfo->status]; ?></b>
+            <div><?php $status = ["<b style='color:gray;'>Ausente</b>","<b style='color:green;'>Online</b>","<b style='color:red;'>Ocupado</b>"]; $cargo = ["","<button class='verificado1' style='margin-left:3px;width:15px;height:15px;'></button>"]; ?>
+                <b><a href="/perfil/<?php echo $amigoinfo->id; ?>"><?php echo $amigoinfo->nome." ".$amigoinfo->sobrenome.$cargo[$amigoinfo->verificado]; ?></a> <?php echo $status[$amigoinfo->status]; ?></b>
                 <b><?php echo $amigoinfoperfil->biografia; ?></b>
             </div>
         </div>

@@ -1,5 +1,6 @@
 <?php
     include_once("../content/code/sessao.php");
+    $cargo = ["","<button class='verificado1' style='margin-left:5px;'></button>"];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -23,7 +24,7 @@
             </section>
             <section class="profile">
                 <div class="namesdiv">
-                    <h3 style="margin-left:20px;"><?php echo "$acnome $acsobrenome <button class='verificado$acverificado'></button>"; ?></h3>
+                    <h3 style="margin-left:20px;"><?php echo "$acnome $acsobrenome".$cargo[$acverificado]; ?></h3>
                 </div>
                 <div class="biodiv">
                     <form action="" method="post">

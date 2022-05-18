@@ -245,6 +245,7 @@ background: #888;
     justify-content: center;
     flex-direction: column;
     align-items: center;
+    background-color: rgba(0,0,0,0.1);
 }.publik{
     display: flex;
     justify-content: center;
@@ -274,11 +275,13 @@ background: #888;
     margin-top:20px;
     display: flex;
     flex-direction: row;
-    width:300px;
+    width:425px;
     height:auto;
-    border-bottom: 1px solid var(--theme2);
-}.pub img{
-
+    border: 1px solid gray;
+    background-color: var(--theme1);
+    border-radius:10px;
+    padding:10px;
+    box-shadow: 0px 0px 10px 1px rgba(0,0,0,0.2);
 }
 .pub form{
     display:flex;
@@ -648,4 +651,52 @@ body{
     background-color: green;
 }#divconta form input[type=submit]:hover{
     box-shadow: inset 0px 0px 100px 100px rgba(255,255,255,0.2);
+}
+
+.comentarios{
+    display: flex;
+    flex-direction: column;
+}.comentarios form input[type=text]{
+    border-radius: 20px;
+    width:100%;
+    height:20px;
+    padding:5px;
+    border:2px solid gray;
+    margin-top:5px;
+    margin-bottom:10px;
+}.comentarios form input[type=submit]{
+    background-position: center;
+    background-repeat: no-repeat;
+    border:0px;
+    border-radius:100%;
+    color:transparent;
+    width:40px;
+    height:40px;
+    background-size: 70%;
+}.coment{
+    background-color: rgba(0,0,0,0.1);
+    padding:10px;
+    border-radius:10px;
+    margin-bottom:2px;
+    transition: 0.2s;
+}.coment:hover{
+    background-color: rgba(0,0,0,0.2);
+}
+.coment div:first-child{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}.coment div:first-child div:first-child{
+    display: flex;
+    justify-content: center;
+}.coment section a{
+    margin-left:30px;
+}
+
+input[type=text]:focus{
+    border-color: #020682 !important;;
+}input[type=email]:focus{
+    border-color: #020682 !important;
+}input[type=password]:focus{
+    border-color: #020682 !important;
 }

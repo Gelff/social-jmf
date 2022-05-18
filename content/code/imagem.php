@@ -6,7 +6,7 @@
         if(in_array($extensao, $formatP)){
             $pasta = "../content/img/alunos/";
             $temporario = $_FILES['foto']['tmp_name'];
-            $novoNome = md5($id.$nome.$token).".jpg";
+            $novoNome = md5($id.$token).".jpg";
             $mudarfoto = "UPDATE perfil SET foto=:foto WHERE id=$id";
             try{
                 $resultfoto = $conect->prepare($mudarfoto);
@@ -23,7 +23,7 @@
         if(in_array($extensao, $formatP)){
             $pasta = "../content/img/capas/";
             $temporario = $_FILES['cape']['tmp_name'];
-            $novoNome = md5($id.$nome.$token).".jpg";
+            $novoNome = md5($id.$token).".jpg";
             $mudarcapa = "UPDATE perfil SET capa=:capa WHERE id=$id";
             try{
                 $resultcapa = $conect->prepare($mudarcapa);

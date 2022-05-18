@@ -403,3 +403,11 @@ body{
 }.botaoentrar:hover{
     box-shadow: inset 0px 0px 100px 10px rgba(255, 255, 255, 0.225) !important;
 }
+
+input[type=text]:focus{
+    border-color:#020682 !important;
+}input[type=email]:focus{
+    border-color:#020682 !important;
+}input[type=password]:focus{
+    border-color:#020682 !important;
+}

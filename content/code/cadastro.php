@@ -1,8 +1,8 @@
 <?php 
 if(isset($_POST['cadastrar'])){
     $genero = $_POST['genero'];
-    $nome = $_POST['nome'];
-    $sobrenome = $_POST['sobrenome'];
+    $nome = ucfirst(strtolower($_POST['nome']));
+    $sobrenome = ucfirst(strtolower($_POST['sobrenome']));
     $email = $_POST['email'];
     $senha = base64_encode($_POST['senha']);
     $dara = date(DATE_RFC822);

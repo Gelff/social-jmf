@@ -48,6 +48,7 @@
             }
         }
     }catch(PDOException $i){}
+    $cargo = ["","<button class='verificado1' style='margin-left:5px;'></button>"];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -59,7 +60,7 @@
     <link rel="stylesheet" href="style.css">
     <link rel="icon" type="image/x-icon" href="/content/img/alunos/<?php echo $pFoto; ?>">
 </head>
-<body style="background-color:var(--theme1)">
+<body>
     <section class="main">    
         <?php include("../content/pages/caminhos.html"); ?>
         <section class="content">
@@ -74,7 +75,7 @@
             <?php } include_once("../content/code/adicionaramigo.php"); ?>
             <section class="profile">
                 <div class="namesdiv">
-                    <h3 style="margin-left:20px;"><?php echo "$acnome $acsobrenome <button class='verificado$acverificado'></button>"; ?></h3>
+                    <h3 style="margin-left:20px;"><?php echo "$acnome $acsobrenome".$cargo[$acverificado]; ?></h3>
                 </div>
                 <div class="biodiv">
                     <form action="" method="post">
